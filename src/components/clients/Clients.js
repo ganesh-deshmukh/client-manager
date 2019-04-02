@@ -29,7 +29,7 @@ class Clients extends Component {
     const { clients } = this.props;
     const { totalBalance } = this.state;
 
-    console.log("this.props.clients =", this.props.clients);
+    // console.log("this.props.clients =", this.props.clients);
 
     if (clients) {
       return (
@@ -42,7 +42,7 @@ class Clients extends Component {
             </div>
             <div className="col-md-6 mr-auto">
               <h2 className="mr-auto">
-                <i className="fas fa-calculator" /> Total
+                <i className="fas fa-calculator" /> Total &nbsp;
                 <span className="text-primary">
                   &#x20b9; {parseFloat(totalBalance)}
                 </span>
