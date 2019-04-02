@@ -5,10 +5,29 @@ import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+
+import Spinner from "../layouts/Spinner";
 class Clients extends Component {
+  state = {
+    totalBalance: null
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { clients } = props;
+
+    if (clients) {
+      // then add balances of all clients on looping through clients-array.
+      const total = clients.reduce((total, i) => {
+        return total + parseFloat(i.balance.toString());
+      }, 0);
+      return { totalBalance: total };
+    }
+    return null; // if no clients
+  }
   render() {
     // const clients = this.props.clients;
     const { clients } = this.props;
+    const { totalBalance } = this.state;
 
     console.log("this.props.clients =", this.props.clients);
 
@@ -23,7 +42,10 @@ class Clients extends Component {
             </div>
             <div className="col-md-6 mr-auto">
               <h2 className="mr-auto">
-                <i className="fas fa-calculator">Total </i>
+                <i className="fas fa-calculator" /> Total
+                <span className="text-primary">
+                  &#x20b9; {parseFloat(totalBalance)}
+                </span>
               </h2>
             </div>
 
@@ -60,7 +82,7 @@ class Clients extends Component {
         </div>
       );
     } else {
-      return <h1>Loading Spinner..</h1>;
+      return <Spinner />;
     }
   }
 }
