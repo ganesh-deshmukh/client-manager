@@ -22,7 +22,9 @@ const rrfConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// const firestore = firebase.firestore();
+const firestore = firebase.firestore();
+const settings = { timestampsInSnapshots: true };
+firestore.settings(settings);
 
 // rrf-enhancer
 const createStoreWithFirebase = compose(
