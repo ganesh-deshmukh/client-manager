@@ -64,7 +64,7 @@ class Clients extends Component {
                 {clients.map(client => (
                   <tr key={client.id}>
                     <td>
-                      {client.firstname} {client.lastname}
+                      {client.firstName} {client.lastName}
                     </td>
                     <td>{client.email}</td>
                     <td>&#x20b9; {parseFloat(client.balance).toFixed(2)}</td>
