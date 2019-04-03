@@ -1,6 +1,6 @@
 import React from "react";
 import Clients from "../clients/Clients";
-import Sidebar from "../layouts/Sidebar";
+import Sidebar from "../layout/Sidebar";
 
 export default function Dashboard() {
   return (

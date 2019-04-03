@@ -6,7 +6,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 
-import Spinner from "../layouts/Spinner";
+import Spinner from "../layout/Spinner";
 class Clients extends Component {
   state = {
     totalBalance: null
