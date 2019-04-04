@@ -5,94 +5,146 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import Spinner from "../layout/Spinner";
-import classnames from "classnames";
-import ClientDetails from "./ClientDetails";
 
 class EditClient extends Component {
+  constructor(props) {
+    super(props);
+    // Create refs
+    this.firstNameInput = React.createRef();
+    this.lastNameInput = React.createRef();
+    this.emailInput = React.createRef();
+    this.phoneInput = React.createRef();
+    this.balanceInput = React.createRef();
+  }
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const { client, firestore, history } = this.props;
+
+    // Updated Client
+    const updClient = {
+      firstName: this.firstNameInput.current.value,
+      lastName: this.lastNameInput.current.value,
+      email: this.emailInput.current.value,
+      phone: this.phoneInput.current.value,
+      balance:
+        this.balanceInput.current.value === ""
+          ? 0
+          : this.balanceInput.current.value
+    };
+
+    // Update client in firestore
+    firestore
+      .update({ collection: "clients", doc: client.id }, updClient)
+      .then(history.push("/"));
+  };
+
   render() {
     const { client } = this.props;
-    return (
-      <div>
-        <div className="row">
-          <div className="col-md-6">
-            <Link to="/" className="btn btn-link">
-              <i className="fas fa-arrow-circle-left" /> Back To Dashboard
-            </Link>
-          </div>
-          <div className="col-md-6">
-            <div className="btn-group float-right">
-              <Link to={`/client/edit/${client.id}`} className="btn btn-dark">
-                Edit
-              </Link>
-              <button onClick={this.onDeleteClick} className="btn btn-danger">
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-        <hr />
-        <div className="card">
-          <h3 className="card-header">
-            {client.firstName} {client.lastName}
-          </h3>
-          <div className="card-body">
-            <div className="row">
-              <div className="col-md-8 col-sm-6">
-                <h4>
-                  Client ID:&nbsp;
-                  <span className="text-secondary">{client.id}</span>
-                </h4>
-              </div>
-              <div className="col-md-4 col-sm-6">
-                <h3 className="pull-right">
-                  Balance:&nbsp;
-                  <span
-                    className={classnames({
-                      "text-danger": client.balance > 0,
-                      "text-success": client.balance === 0
-                    })}
-                  >
-                    &#x20b9; {client.balance}
-                  </span>
-                  &nbsp;
-                  <small>
-                    <a
-                      href="#!"
-                      onClick={() =>
-                        this.setState({
-                          showBalanceUpdate: !this.state.showBalanceUpdate
-                        })
-                      }
-                    >
-                      <i className="fas fa-pencil-alt" />
-                    </a>
-                  </small>
-                </h3>
-                {balanceForm}
-              </div>
-            </div>
 
-            <hr />
-            <ul className="list-group">
-              <li className="list-group-item">Contact Email: {client.email}</li>
-              <li className="list-group-item">Contact Phone: {client.phone}</li>
-            </ul>
+    if (client) {
+      return (
+        <div>
+          <div className="row">
+            <div className="col-md-6">
+              <Link to="/" className="btn btn-link">
+                <i className="fas fa-arrow-circle-left" /> Back To Dashboard
+              </Link>
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">Edit Client</div>
+            <div className="card-body">
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="firstName"
+                    minLength="2"
+                    required
+                    ref={this.firstNameInput}
+                    defaultValue={client.firstName}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    minLength="2"
+                    required
+                    ref={this.lastNameInput}
+                    defaultValue={client.lastName}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    ref={this.emailInput}
+                    defaultValue={client.email}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phone">Phone</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="phone"
+                    minLength="10"
+                    required
+                    ref={this.phoneInput}
+                    defaultValue={client.phone}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="balance">Balance</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="balance"
+                    ref={this.balanceInput}
+                    defaultValue={client.balance}
+                  />
+                </div>
+
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="btn btn-primary btn-block"
+                />
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <Spinner />;
+    }
   }
 }
 
+EditClient.propTypes = {
+  firestore: PropTypes.object.isRequired
+};
+
 export default compose(
   firestoreConnect(props => [
-    {
-      collection: "clients",
-      storeAs: "client",
-      doc: props.params.match.id
-    }
+    { collection: "clients", storeAs: "client", doc: props.match.params.id }
   ]),
-  connect(({ firebase: { ordered } }, props) => ({
-    client: ordered.client && ordered.client[0]
+  connect(({ firestore: { ordered }, settings }, props) => ({
+    client: ordered.client && ordered.client[0],
+    settings
   }))
-)(ClientDetails);
+)(EditClient);

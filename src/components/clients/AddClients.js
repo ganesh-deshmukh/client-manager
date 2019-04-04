@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { compose } from "redux";
-// import { connect } from "react-redux";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 
-class AddClients extends Component {
+class AddClient extends Component {
   state = {
     firstName: "",
     lastName: "",
-    phone: "",
     email: "",
+    phone: "",
     balance: ""
   };
 
@@ -65,6 +65,7 @@ class AddClients extends Component {
                 />
               </div>
               {/* for Lastname */}
+
               <div className="form-group">
                 <label htmlFor="lastName">Last Name</label>
                 <input
@@ -78,6 +79,7 @@ class AddClients extends Component {
                 />
               </div>
               {/* for EmailId */}
+
               <div className="form-group">
                 <label htmlFor="email">Email Id</label>
                 <input
@@ -91,19 +93,21 @@ class AddClients extends Component {
                 />
               </div>
               {/* for Phone */}
+
               <div className="form-group">
                 <label htmlFor="phone">Phone No.</label>
                 <input
                   type="text"
                   className="form-control"
                   name="phone"
-                  minLength="4"
+                  minLength="10"
                   required
                   onChange={this.onChange}
                   value={this.state.phone}
                 />
               </div>
               {/* for Balance */}
+
               <div className="form-group">
                 <label htmlFor="balance">Balance</label>
                 <input
@@ -128,8 +132,14 @@ class AddClients extends Component {
   }
 }
 
-AddClients.protoTypes = {
-  firestore: PropTypes.object.isRequired
+AddClient.propTypes = {
+  firestore: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired
 };
 
-export default firestoreConnect()(AddClients);
+export default compose(
+  firestoreConnect(),
+  connect((state, props) => ({
+    settings: state.settings
+  }))
+)(AddClient);
