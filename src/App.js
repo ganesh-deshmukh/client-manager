@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AppNavbar from "./components/layout/AppNavbar";
 import Dashboard from "./components/layout/Dashboard";
 import AddClients from "./components/clients/AddClients";
+import EditClient from "./components/clients/EditClient";
 import ClientDetails from "./components/clients/ClientDetails";
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={Dashboard} />
                 <Route exact path="/client/add" component={AddClients} />
+                <Route exact path="/client/edit/:id" component={EditClient} />
                 <Route exact path="/client/:id" component={ClientDetails} />
               </Switch>
             </div>

@@ -50,7 +50,7 @@ class ClientDetails extends Component {
         <form onSubmit={this.balanceSubmit}>
           <div className="input-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               name="balanceUpdateAmount"
               placeholder="Add New Balance"
