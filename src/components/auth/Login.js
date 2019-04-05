@@ -9,12 +9,27 @@ class Login extends Component {
     email: "",
     password: ""
   };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const { firebase } = this.props;
+    const { email, password } = this.state;
+
+    firebase
+      .login({
+        email,
+        password
+      })
+      .catch(err => alert("Invalid email or password"));
+  };
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
           <div className="card border-success">
-            <div className="body">
+            <div className="card-body">
               <h1 className="text-center py-3 ">
                 <span className="text-success">
                   <i className="fas fa-lock" />
@@ -22,7 +37,7 @@ class Login extends Component {
                 </span>
               </h1>
 
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input
@@ -37,7 +52,7 @@ class Login extends Component {
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     name="password"
                     required
