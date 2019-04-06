@@ -12,6 +12,7 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
     const { firebase } = this.props;
     const { email, password } = this.state;
 
@@ -20,23 +21,22 @@ class Login extends Component {
         email,
         password
       })
-      .catch(err => alert("Invalid email or password"));
+      .catch(e => alert("Invalid Credentials for Login"));
   };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
-          <div className="card border-success">
+          <div className="card">
             <div className="card-body">
-              <h1 className="text-center py-3 ">
-                <span className="text-success">
-                  <i className="fas fa-lock" />
-                  &nbsp; Login
+              <h1 className="text-center pb-4 pt-3">
+                <span className="text-primary">
+                  <i className="fas fa-lock" /> Login
                 </span>
               </h1>
-
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
@@ -60,11 +60,10 @@ class Login extends Component {
                     onChange={this.onChange}
                   />
                 </div>
-
                 <input
                   type="submit"
                   value="Login"
-                  className="btn btn-success btn-block"
+                  className="btn btn-primary btn-block"
                 />
               </form>
             </div>
@@ -78,4 +77,5 @@ class Login extends Component {
 Login.propTypes = {
   firebase: PropTypes.object.isRequired
 };
+
 export default firebaseConnect()(Login);
