@@ -30,7 +30,7 @@ class Login extends Component {
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
-          <div className="card border-  ">
+          <div className="card border-success">
             <div className="card-body">
               <h1 className="text-center py-3 ">
                 <span className="text-success">
@@ -38,8 +38,7 @@ class Login extends Component {
                   &nbsp; Login
                 </span>
               </h1>
-
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input
