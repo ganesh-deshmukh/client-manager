@@ -15,7 +15,7 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase } = this.props;
+    const { firebase, notifyUser } = this.props;
     const { email, password } = this.state;
 
     firebase
@@ -23,17 +23,22 @@ class Login extends Component {
         email,
         password
       })
-      .catch(e => alert("Invalid Credentials for Login"));
+      .catch(e => notifyUser("Invalid Credentials for Login", "error"));
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    const { message, messageType } = this.props.notify;
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
           <div className="card border-success">
             <div className="card-body">
+              {message ? (
+                <Alert message={message} messageType={messageType} />
+              ) : null}
+
               <h1 className="text-center py-3 ">
                 <span className="text-success">
                   <i className="fas fa-lock" />
@@ -83,9 +88,12 @@ Login.propTypes = {
 
 export default compose(
   firebaseConnect(),
-  connect((state, props) => ({
-    notify: state.notify
-  }))
+  connect(
+    (state, props) => ({
+      notify: state.notify
+    }),
+    { notifyUser }
+  )
 )(Login);
 
 // export default firebaseConnect()(Login);
