@@ -1,8 +1,8 @@
 import { NOTIFY_USER } from "../actions/types";
 
 const initialState = {
-  msg: null,
-  msgType: null
+  message: null,
+  messageType: null
 };
 
 // two messages, error and success, both with different colors.

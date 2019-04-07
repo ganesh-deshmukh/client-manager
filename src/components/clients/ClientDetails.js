@@ -50,7 +50,7 @@ class ClientDetails extends Component {
         <form onSubmit={this.balanceSubmit}>
           <div className="input-group">
             <input
-              type="number"
+              type="text"
               className="form-control"
               name="balanceUpdateAmount"
               placeholder="Add New Balance"
@@ -100,22 +100,21 @@ class ClientDetails extends Component {
               <div className="row">
                 <div className="col-md-8 col-sm-6">
                   <h4>
-                    Client ID:&nbsp;
+                    Client ID:{" "}
                     <span className="text-secondary">{client.id}</span>
                   </h4>
                 </div>
                 <div className="col-md-4 col-sm-6">
                   <h3 className="pull-right">
-                    Balance:&nbsp;
+                    Balance:{" "}
                     <span
                       className={classnames({
                         "text-danger": client.balance > 0,
                         "text-success": client.balance === 0
                       })}
                     >
-                      &#x20b9; {client.balance}
-                    </span>
-                    &nbsp;
+                      ${parseFloat(client.balance).toFixed(2)}
+                    </span>{" "}
                     <small>
                       <a
                         href="#!"

@@ -15,13 +15,10 @@ class AppNavbar extends Component {
 
     if (auth.uid) {
       // means user is loggedin, as uid exists, else uid=null.
-      return {
-        isAuthenticated: true
-      };
+
+      return { isAuthenticated: true };
     } else {
-      return {
-        isAuthenticated: false
-      };
+      return { isAuthenticated: false };
     }
   }
 
@@ -37,7 +34,7 @@ class AppNavbar extends Component {
     const { allowRegistration } = this.props.settings;
 
     return (
-      <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-4">
+      <nav className="navbar navbar-expand-md navbar-dark bg-success mb-4">
         <div className="container">
           <Link to="/" className="navbar-brand">
             Client-Manager
@@ -54,13 +51,11 @@ class AppNavbar extends Component {
             <ul className="navbar-nav mr-auto">
               {isAuthenticated ? (
                 <li className="nav-item">
-                  <Link to="/" className="nav-link ">
+                  <Link to="/" className="nav-link">
                     Dashboard
                   </Link>
                 </li>
-              ) : (
-                " "
-              )}
+              ) : null}
             </ul>
 
             {isAuthenticated ? (

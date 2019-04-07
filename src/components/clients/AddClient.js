@@ -15,13 +15,13 @@ class AddClient extends Component {
   };
 
   onSubmit = e => {
-    e.preventDefault(); // as, event's default function is to navigate to success screen
+    e.preventDefault();
 
     const newClient = this.state;
 
     const { firestore, history } = this.props;
 
-    // If no balance, then assign it to 0.
+    // If no balance, make 0
     if (newClient.balance === "") {
       newClient.balance = 0;
     }
@@ -31,13 +31,11 @@ class AddClient extends Component {
       .then(() => history.push("/"));
   };
 
-  onChange = event =>
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { disableBalanceOnAdd } = this.props.settings;
+
     return (
       <div>
         <div className="row">
@@ -52,20 +50,18 @@ class AddClient extends Component {
           <div className="card-header">Add Client</div>
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
-              {/* for Firstname */}
               <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
                   className="form-control"
                   name="firstName"
-                  minLength="4"
+                  minLength="2"
                   required
                   onChange={this.onChange}
                   value={this.state.firstName}
                 />
               </div>
-              {/* for Lastname */}
 
               <div className="form-group">
                 <label htmlFor="lastName">Last Name</label>
@@ -73,30 +69,26 @@ class AddClient extends Component {
                   type="text"
                   className="form-control"
                   name="lastName"
-                  minLength="4"
+                  minLength="2"
                   required
                   onChange={this.onChange}
                   value={this.state.lastName}
                 />
               </div>
-              {/* for EmailId */}
 
               <div className="form-group">
-                <label htmlFor="email">Email Id</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
                   className="form-control"
                   name="email"
-                  minLength="4"
-                  required
                   onChange={this.onChange}
                   value={this.state.email}
                 />
               </div>
-              {/* for Phone */}
 
               <div className="form-group">
-                <label htmlFor="phone">Phone No.</label>
+                <label htmlFor="phone">Phone</label>
                 <input
                   type="text"
                   className="form-control"
@@ -107,7 +99,6 @@ class AddClient extends Component {
                   value={this.state.phone}
                 />
               </div>
-              {/* for Balance */}
 
               <div className="form-group">
                 <label htmlFor="balance">Balance</label>

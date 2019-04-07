@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import "./App.css";
-import { Provider } from "react-redux";
-import store from "./store";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { UserIsAuthenticated, UserIsNotAuthenticated } from "./helpers/auth";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store";
+
 import AppNavbar from "./components/layout/AppNavbar";
 import Dashboard from "./components/layout/Dashboard";
-import AddClients from "./components/clients/AddClients";
+import AddClient from "./components/clients/AddClient";
 import EditClient from "./components/clients/EditClient";
 import ClientDetails from "./components/clients/ClientDetails";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Settings from "./components/settings/Settings";
+
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -30,8 +32,8 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/client/add/"
-                  component={UserIsAuthenticated(AddClients)}
+                  path="/client/add"
+                  component={UserIsAuthenticated(AddClient)}
                 />
                 <Route
                   exact
@@ -45,11 +47,6 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/settings"
-                  component={UserIsAuthenticated(Settings)}
-                />
-                <Route
-                  exact
                   path="/login"
                   component={UserIsNotAuthenticated(Login)}
                 />
@@ -57,6 +54,11 @@ class App extends Component {
                   exact
                   path="/register"
                   component={UserIsNotAuthenticated(Register)}
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  component={UserIsAuthenticated(Settings)}
                 />
               </Switch>
             </div>

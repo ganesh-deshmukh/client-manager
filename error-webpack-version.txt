@@ -11,7 +11,7 @@ The react-scripts package provided by Create React App requires a dependency:
 
   "webpack-dev-server": "3.1.14"
 
-Don't try to install it manually: your package manager does it automatically.
+Don"t try to install it manually: your package manager does it automatically.
 However, a different version of webpack-dev-server was detected higher up in the tree:
 
   /home/gd/node_modules/webpack-dev-server (version: 3.2.0) 

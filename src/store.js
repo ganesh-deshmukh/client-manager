@@ -1,10 +1,9 @@
-// import React, { Component } from "react";
 import { createStore, combineReducers, compose } from "redux";
 import firebase from "firebase";
 import "firebase/firestore";
-import { firebaseReducer, reactReduxFirebase } from "react-redux-firebase";
+import { reactReduxFirebase, firebaseReducer } from "react-redux-firebase";
 import { reduxFirestore, firestoreReducer } from "redux-firestore";
-//user reducers for notification
+// Reducers
 import notifyReducer from "./reducers/notifyReducer";
 import settingsReducer from "./reducers/settingsReducer";
 
@@ -20,18 +19,19 @@ const firebaseConfig = {
 // rrf= react-redux-firebase config
 const rrfConfig = {
   userProfile: "users",
-  useFireStoreForProfile: true
+  useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 };
 
+// Init firebase instance
 firebase.initializeApp(firebaseConfig);
-
+// Init firestore
 const firestore = firebase.firestore();
 const settings = { timestampsInSnapshots: true };
 firestore.settings(settings);
 
-// rrf-enhancer
+// Add reactReduxFirebase enhancer when making store creator
 const createStoreWithFirebase = compose(
-  reactReduxFirebase(firebase, rrfConfig),
+  reactReduxFirebase(firebase, rrfConfig), // firebase instance as first argument
   reduxFirestore(firebase)
 )(createStore);
 
