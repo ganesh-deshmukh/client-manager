@@ -9,7 +9,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case "NOTIFY_USER":
+    case NOTIFY_USER:
       return {
         ...state,
         message: action.message,

@@ -10,7 +10,7 @@ export const setDisableBalanceOnAdd = () => {
   };
 };
 
-export const setDisableBalanceOnAEdit = () => {
+export const setDisableBalanceOnEdit = () => {
   return {
     type: DISABLE_BALANCE_ON_EDIT
   };
