@@ -1,6 +1,6 @@
 # Clients-Balance-Manager for Business Owners.
 
-![Demo-loading... Please Wait...](https://github.com/ganesh-deshmukh/client-manager/blob/master/src/client-manager-demo.gif)
+![Demo-loading... Please Wait...](https://github.com/ganesh-deshmukh/client-manager/blob/master/src/client-balance-manager-demo.gif)
 
 Clients-Balance-Manager is Webapp to track clients and their balances in accounts.
 
